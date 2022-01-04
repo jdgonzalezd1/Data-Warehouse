@@ -1,0 +1,188 @@
+<Schema name="Schema_Sakila_dw" description="Schema for Sakila Data Warehouse ">
+  <Cube name="sales" visible="true" cache="true" enabled="true">
+    <Table name="fact_sales" alias="fact_sales">
+    </Table>
+    <Dimension type="TimeDimension" visible="true" foreignKey="dim_time" highCardinality="false" name="time">
+      <Hierarchy name="date" visible="true" hasAll="true" primaryKey="complete_date">
+        <Table name="dim_time">
+        </Table>
+        <Level name="year" visible="true" column="year" nameColumn="year" type="Numeric" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+        </Level>
+        <Level name="month" visible="true" column="month" nameColumn="month" ordinalColumn="month" type="String" internalType="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+        </Level>
+        <Level name="month_day" visible="true" column="day" nameColumn="day" type="Numeric" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+        <Level name="day_of_week" visible="true" column="week_day" nameColumn="week_day" type="String" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+        <Level name="complete_date" visible="true" column="complete_date" nameColumn="complete_date" type="Time" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_store" highCardinality="false" name="store">
+      <Hierarchy name="location" visible="true" hasAll="true" primaryKey="id_store">
+        <Table name="dim_store">
+        </Table>
+        <Level name="country" visible="true" table="dim_store" column="country" nameColumn="country" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="city" visible="true" table="dim_store" column="city" nameColumn="city" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="address" visible="true" table="dim_store" column="address" nameColumn="address" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="id_store" visible="true" table="dim_store" column="id_store" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_staff" highCardinality="false" name="staff">
+      <Hierarchy name="personal" visible="true" hasAll="true" primaryKey="id_staff">
+        <Table name="dim_staff">
+        </Table>
+        <Level name="store" visible="true" table="dim_staff" column="id_store" nameColumn="id_store" type="Numeric" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="name" visible="true" table="dim_staff" column="name" nameColumn="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="id_staff" visible="true" table="dim_staff" column="id_staff" nameColumn="id_staff" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_customer" highCardinality="false" name="customer">
+      <Hierarchy name="cliente" visible="true" hasAll="true" primaryKey="id_customer">
+        <Table name="dim_customer">
+        </Table>
+        <Level name="country" visible="true" table="dim_customer" column="country" nameColumn="country" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="city" visible="true" table="dim_customer" column="city" nameColumn="city" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="name" visible="true" table="dim_customer" column="name" nameColumn="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="id_customer" visible="true" table="dim_customer" column="id_customer" nameColumn="id_customer" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="amount" column="amount" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="cost" column="cost" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="rentals" visible="true" cache="true" enabled="true">
+    <Table name="fact_rentals" alias="rentals">
+    </Table>
+    <Dimension type="TimeDimension" visible="true" foreignKey="dim_time" highCardinality="false" name="time">
+      <Hierarchy name="date" visible="true" hasAll="true" primaryKey="complete_date">
+        <Table name="dim_time">
+        </Table>
+        <Level name="year" visible="true" table="dim_time" column="year" nameColumn="year" type="Numeric" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+        </Level>
+        <Level name="month" visible="true" table="dim_time" column="month" nameColumn="month" ordinalColumn="month" type="String" internalType="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+        </Level>
+        <Level name="month_day" visible="true" table="dim_time" column="day" nameColumn="day" type="Numeric" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+        <Level name="day_of_week" visible="true" table="dim_time" column="week_day" nameColumn="week_day" type="String" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+        <Level name="complete_date" visible="true" table="dim_time" column="complete_date" nameColumn="complete_date" type="Time" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_store" highCardinality="false" name="store">
+      <Hierarchy name="location" visible="true" hasAll="true" primaryKey="id_store">
+        <Table name="dim_store">
+        </Table>
+        <Level name="country" visible="true" table="dim_store" column="country" nameColumn="country" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="city" visible="true" table="dim_store" column="city" nameColumn="city" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="address" visible="true" table="dim_store" column="address" nameColumn="address" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="id_store" visible="true" table="dim_store" column="id_store" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_staff" highCardinality="false" name="staff">
+      <Hierarchy name="personal" visible="true" hasAll="true" primaryKey="id_staff">
+        <Table name="dim_staff">
+        </Table>
+        <Level name="store" visible="true" table="dim_staff" column="id_store" nameColumn="id_store" type="Numeric" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="name" visible="true" table="dim_staff" column="id_staff" nameColumn="id_staff" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="id_staff" visible="true" table="dim_staff" column="id_staff" nameColumn="id_staff" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_film" highCardinality="false" name="film">
+      <Hierarchy name="movie" visible="true" hasAll="true" primaryKey="id_film">
+        <Table name="dim_film">
+        </Table>
+        <Level name="language" visible="true" table="dim_film" column="language" nameColumn="language" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="title" visible="true" table="dim_film" column="title" nameColumn="title" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="id_film" visible="true" table="dim_film" column="id_film" nameColumn="id_film" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_customer" highCardinality="false" name="customer">
+      <Hierarchy name="cliente" visible="true" hasAll="true" primaryKey="id_customer">
+        <Table name="dim_customer">
+        </Table>
+        <Level name="country" visible="true" table="dim_customer" column="country" nameColumn="country" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="city" visible="true" table="dim_customer" column="city" nameColumn="city" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="name" visible="true" table="dim_customer" column="name" nameColumn="name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="id_customer" visible="true" table="dim_customer" column="id_customer" nameColumn="id_customer" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="amount" column="amount" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="inventory" visible="true" cache="true" enabled="true">
+    <Table name="fact_inventory" alias="inventory">
+    </Table>
+    <Dimension type="TimeDimension" visible="true" foreignKey="dim_time" highCardinality="false" name="time">
+      <Hierarchy name="date" visible="true" hasAll="true" primaryKey="complete_date">
+        <Table name="dim_time">
+        </Table>
+        <Level name="year" visible="true" table="dim_time" column="year" nameColumn="year" type="Numeric" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+        </Level>
+        <Level name="month" visible="true" table="dim_time" column="month" nameColumn="month" ordinalColumn="month" type="String" internalType="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+        </Level>
+        <Level name="month_day" visible="true" table="dim_time" column="day" nameColumn="day" type="Numeric" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+        <Level name="day_of_week" visible="true" table="dim_time" column="week_day" nameColumn="week_day" type="String" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+        <Level name="complete_date" visible="true" table="dim_time" column="complete_date" nameColumn="complete_date" type="Time" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_store" highCardinality="false" name="store">
+      <Hierarchy name="location" visible="true" hasAll="true" primaryKey="id_store">
+        <Table name="dim_store">
+        </Table>
+        <Level name="country" visible="true" table="dim_store" column="country" nameColumn="country" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="address" visible="true" table="dim_store" column="address" nameColumn="address" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="city" visible="true" table="dim_store" column="city" nameColumn="city" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="id_store" visible="true" table="dim_store" column="id_store" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_film" highCardinality="false" name="movie">
+      <Hierarchy name="pelicula" visible="true" hasAll="true" primaryKey="id_film">
+        <Table name="dim_film">
+        </Table>
+        <Level name="language" visible="true" table="dim_film" column="language" nameColumn="language" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="title" visible="true" table="dim_film" column="title" nameColumn="title" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="id_film" visible="true" table="dim_film" column="id_film" nameColumn="id_film" type="Integer" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="amount" column="amount" datatype="Numeric" aggregator="distinct-count" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
