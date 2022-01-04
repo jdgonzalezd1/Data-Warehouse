@@ -14,3 +14,4 @@ report-designer y schema-workbench).
 6. DefuncionesPorMunicipioReporte.pdf: Reporte realizado al final del ejercicio con la herramienta JasperSoft Studio.
 7. Reporte Defuncion Por Fecha.pdf: Reporte realizado al final del ejercicio con la herramienta JasperSoft Studio.
 8. ReporteAsistenciasMedicas.pdf: Reporte realizado al final del ejercicio con la herramienta JasperSoft Studio.
+9. BONA HEALTH EPS.pptx: Resumen de todo el proceso realizado.
