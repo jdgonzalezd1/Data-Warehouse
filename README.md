@@ -15,3 +15,7 @@ report-designer y schema-workbench).
 7. Reporte Defuncion Por Fecha.pdf: Reporte realizado al final del ejercicio con la herramienta JasperSoft Studio.
 8. ReporteAsistenciasMedicas.pdf: Reporte realizado al final del ejercicio con la herramienta JasperSoft Studio.
 9. BONA HEALTH EPS.pptx: Resumen de todo el proceso realizado.
+
+# Documentos Adicionales
+1. Creación Cubo (folder): Creación de un cubo por medio de Pentaho Schema Workbench, junto con la documentación de todo el procedimiento
+involucrado.
