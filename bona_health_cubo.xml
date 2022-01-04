@@ -1,0 +1,118 @@
+<Schema name="Schema_Bona_Health_dw">
+  <Cube name="asistencia_medica" visible="true" description="Cubo para datos sobre asistencia medica" cache="true" enabled="true">
+    <Table name="fact_asis_medica">
+    </Table>
+    <Dimension type="TimeDimension" visible="true" foreignKey="dim_fecha" highCardinality="false" name="dim_fecha">
+      <Hierarchy name="fecha" visible="true" hasAll="true" primaryKey="fecha_completa">
+        <Table name="dim_fecha">
+        </Table>
+        <Level name="anio" visible="true" table="dim_fecha" column="anio" nameColumn="anio" type="Numeric" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+        </Level>
+        <Level name="mes" visible="true" table="dim_fecha" column="mes" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+        </Level>
+        <Level name="dia" visible="true" table="dim_fecha" column="dia" nameColumn="dia" type="Numeric" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+        <Level name="fecha_completa" visible="true" table="dim_fecha" column="fecha_completa" nameColumn="fecha_completa" type="Time" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_municipio" highCardinality="false" name="dim_municipio">
+      <Hierarchy name="municipio" visible="true" hasAll="true" primaryKey="id_municipio">
+        <Table name="dim_municipio">
+        </Table>
+        <Level name="departamento" visible="true" table="dim_municipio" column="departamento" nameColumn="departamento" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="municipio" visible="true" table="dim_municipio" column="municipio" nameColumn="municipio" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="id_municipio" visible="true" table="dim_municipio" column="id_municipio" nameColumn="id_municipio" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_enfermedad" highCardinality="false" name="dim_enfermedad">
+      <Hierarchy name="enfermedad" visible="true" hasAll="true" primaryKey="nombre">
+        <Table name="dim_enfermedad">
+        </Table>
+        <Level name="descripcion" visible="true" table="dim_enfermedad" column="descript" nameColumn="descript" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="nombre" visible="true" table="dim_enfermedad" column="nombre" nameColumn="nombre" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="con_asistencia_medica" column="sum_asistencia_med" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="sin_asistencia_medica" column="sum_sin_asistencia_med" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="defun_por_municipio" visible="true" cache="true" enabled="true">
+    <Table name="fact_defun_por_municipio">
+    </Table>
+    <Dimension type="TimeDimension" visible="true" foreignKey="dim_fecha" highCardinality="false" name="dim_fecha">
+      <Hierarchy name="fecha" visible="true" hasAll="true" primaryKey="fecha_completa">
+        <Table name="dim_fecha">
+        </Table>
+        <Level name="anio" visible="true" table="dim_fecha" column="anio" nameColumn="anio" type="Numeric" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+        </Level>
+        <Level name="mes" visible="true" table="dim_fecha" column="mes" nameColumn="mes" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+        </Level>
+        <Level name="dia" visible="true" table="dim_fecha" column="dia" nameColumn="dia" type="Numeric" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+        <Level name="fecha_completa" visible="true" table="dim_fecha" column="fecha_completa" nameColumn="fecha_completa" type="Time" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_municipio" highCardinality="false" name="dim_municipio">
+      <Hierarchy name="municipio" visible="true" hasAll="true" primaryKey="id_municipio">
+        <Table name="dim_municipio">
+        </Table>
+        <Level name="departamento" visible="true" table="dim_municipio" column="departamento" nameColumn="departamento" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="municipio" visible="true" table="dim_municipio" column="municipio" nameColumn="municipio" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="id_municipio" visible="true" table="dim_municipio" column="id_municipio" nameColumn="id_municipio" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_enfermedad" highCardinality="false" name="enfermedad">
+      <Hierarchy name="enfermedad" visible="true" hasAll="true" primaryKey="nombre">
+        <Table name="dim_enfermedad">
+        </Table>
+        <Level name="descripcion" visible="true" table="dim_enfermedad" column="descript" nameColumn="descript" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="nombre" visible="true" table="dim_enfermedad" column="nombre" nameColumn="nombre" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="cantidad_defunciones" column="cant_defun" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+  <Cube name="defunciones_fecha" visible="true" cache="true" enabled="true">
+    <Table name="fact_defunciones_fecha">
+    </Table>
+    <Dimension type="TimeDimension" visible="true" foreignKey="dim_fecha" highCardinality="false" name="dim_fecha">
+      <Hierarchy name="fecha" visible="true" hasAll="true" primaryKey="fecha_completa">
+        <Table name="dim_fecha">
+        </Table>
+        <Level name="anio" visible="true" table="dim_fecha" column="anio" nameColumn="anio" type="Numeric" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+        </Level>
+        <Level name="mes" visible="true" table="dim_fecha" column="mes" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+        </Level>
+        <Level name="dia" visible="true" table="dim_fecha" column="dia" nameColumn="dia" type="Numeric" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+        <Level name="fecha_completa" visible="true" table="dim_fecha" column="fecha_completa" nameColumn="fecha_completa" type="Time" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="dim_enfermedad" highCardinality="false" name="enfermedad">
+      <Hierarchy name="enfermedad" visible="true" hasAll="true" primaryKey="nombre">
+        <Table name="dim_enfermedad">
+        </Table>
+        <Level name="descripcion" visible="true" table="dim_enfermedad" column="descript" nameColumn="descript" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="nombre" visible="true" table="dim_enfermedad" column="nombre" nameColumn="nombre" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="cantidad_fallecidos" column="cantidad_fallecidos" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
